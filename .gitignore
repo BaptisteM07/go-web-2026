@@ -1,0 +1,6 @@
+# Binaires et fichiers locaux
+*.exe
+gamedex/gamedex
+.idea/
+.vscode/
+.DS_Store
