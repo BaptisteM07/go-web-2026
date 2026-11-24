@@ -46,7 +46,7 @@ func fetchJSON(path string, dest any) error {
 
 func FetchGames() ([]Game, error) {
 	var games []Game
-	err := fetchJSON("/api/slow", &games)
+	err := fetchJSON("/api/games", &games)
 	return games, err
 }
 
