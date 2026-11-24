@@ -1,0 +1,86 @@
+/* Police optionnelle (si pas d'internet, Georgia prend le relais) */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+
+:root {
+	--noir: #0b0906;
+	--brun: #1a140c;
+	--or: #c8a85a;
+	--or-clair: #f0d98c;
+	--texte: #d9cfb8;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 40px 20px;
+	min-height: 100vh;
+	background: radial-gradient(circle at top, #2a1f0e 0%, var(--noir) 70%);
+	color: var(--texte);
+	font-family: "Cinzel", Georgia, serif;
+	line-height: 1.6;
+	text-align: center;
+}
+
+h1 {
+	font-size: 2.8rem;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	color: var(--or-clair);
+	text-shadow: 0 0 12px rgba(200, 168, 90, 0.6);
+	margin-bottom: 10px;
+}
+
+h1::after {
+	content: "";
+	display: block;
+	width: 200px;
+	height: 2px;
+	margin: 15px auto 0;
+	background: linear-gradient(to right, transparent, var(--or), transparent);
+}
+
+a {
+	color: var(--or);
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+a:hover {
+	color: var(--or-clair);
+	text-shadow: 0 0 10px var(--or);
+}
+
+p {
+	max-width: 600px;
+	margin: 12px auto;
+	padding: 14px 20px;
+	background: var(--brun);
+	border: 1px solid var(--or);
+	border-radius: 4px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+p:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 0 18px rgba(200, 168, 90, 0.4);
+}
+
+.bouton {
+	display: inline-block;
+	margin-top: 30px;
+	padding: 12px 30px;
+	border: 2px solid var(--or);
+	border-radius: 4px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+.bouton:hover {
+	background: var(--or);
+	color: var(--noir);
+	text-shadow: none;
+}
