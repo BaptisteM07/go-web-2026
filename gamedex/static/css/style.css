@@ -84,3 +84,29 @@ p:hover {
 	color: var(--noir);
 	text-shadow: none;
 }
+
+main {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+/* Pied de page discret */
+footer {
+	margin-top: 60px;
+	font-size: 0.8rem;
+	letter-spacing: 2px;
+	color: var(--or);
+	opacity: 0.6;
+}
+
+/* Petits écrans */
+@media (max-width: 600px) {
+	body {
+		padding: 30px 12px;
+	}
+
+	h1 {
+		font-size: 1.8rem;
+		letter-spacing: 2px;
+	}
+}

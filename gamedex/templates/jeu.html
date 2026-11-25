@@ -1,0 +1,13 @@
+{{template "header" .}}
+<h1>{{.Game.Name}}</h1>
+<p>Sorti en {{.Game.Year}} par {{.Game.Studio}}</p>
+
+<h2>Tournois</h2>
+{{range .Tournaments}}
+  <p>{{.Name}} · {{.City}} · {{.Date}}</p>
+{{else}}
+  <p>Aucun tournoi prévu</p>
+{{end}}
+
+<a class="bouton" href="/jeux">← Retour</a>
+{{template "footer" .}}

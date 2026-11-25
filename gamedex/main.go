@@ -8,11 +8,13 @@ import (
 	"strconv"
 	"time"
 	"encoding/json"
+	"html/template"
 )
 
 const baseURL = "http://localhost:8081"
 
 var client = &http.Client{Timeout: 3 * time.Second}
+var tmpl = template.Must(template.ParseGlob("templates/*.html"))
 
 type Game struct {
 	ID     int      `json:"id"`
@@ -29,6 +31,22 @@ type Tournament struct {
 	City   string `json:"city"`
 	Date   string `json:"date"`
 }
+
+type ListePage struct {
+	Games []Game
+	Query string
+}
+
+type JeuPage struct {
+	Game        Game
+	Tournaments []Tournament
+}
+
+type ErreurPage struct {
+	Code    int
+	Message string
+}
+
 
 func fetchJSON(path string, dest any) error {
 	resp, err := client.Get(baseURL + path)
@@ -62,32 +80,84 @@ func accueil(w http.ResponseWriter, r *http.Request) {
 <html lang="fr">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GameDex</title>
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <h1>Bienvenue sur GameDex</h1>
-  <p>Un catalogue de jeux et de leurs tournois.</p>
-  <p><a href="/jeux">Voir les jeux</a></p>
+  <main>
+    <h1>Bienvenue sur GameDex</h1>
+    <p>Un catalogue de jeux et de leurs tournois.</p>
+    <a class="bouton" href="/jeux">Voir les jeux</a>
+  </main>
+  <footer>GameDex · B1 Ynov Lyon</footer>
 </body>
 </html>`)
 }
 
 func listeJeux(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Liste des jeux")
+	games, err := FetchGames()
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Le service est indisponible", http.StatusBadGateway)
+		return
+	}
+
+page := ListePage{Games: games, Query: r.URL.Query().Get("q")}
+err = tmpl.ExecuteTemplate(w, "liste.html", page)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func detailJeu(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
-		http.Error(w, "identifiant invalide", http.StatusBadRequest) // 400
+		http.Error(w, "Identifiant invalide", http.StatusBadRequest)
 		return
 	}
-	if id > 12 {
-		http.NotFound(w, r) 
+	games, err := FetchGames()
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Le service est indisponible", http.StatusBadGateway)
 		return
 	}
-	fmt.Fprintf(w, "Fiche du jeu %d\n", id)
+	var game Game
+	trouve := false
+	for _, g := range games {
+		if g.ID == id {
+			game = g
+			trouve = true
+		}
+	}
+	if !trouve {
+		http.Error(w, "Ce jeu n'existe pas", http.StatusNotFound)
+		return
+	}
+	tournaments, err := FetchTournaments()
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Le service est indisponible", http.StatusBadGateway)
+		return
+	}
+	var deCeJeu []Tournament
+	for _, t := range tournaments {
+		if t.GameID == id {
+			deCeJeu = append(deCeJeu, t)
+		}
+	}
+	err = tmpl.ExecuteTemplate(w, "jeu.html", JeuPage{Game: game, Tournaments: deCeJeu})
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+func erreur(w http.ResponseWriter, code int, message string) {
+	w.WriteHeader(code)
+	err := tmpl.ExecuteTemplate(w, "erreur.html", ErreurPage{Code: code, Message: message})
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func main() {
