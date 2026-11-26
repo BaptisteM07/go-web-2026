@@ -1,4 +1,3 @@
-/* Police optionnelle (si pas d'internet, Georgia prend le relais) */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
 
 :root {
@@ -24,6 +23,11 @@ body {
 	text-align: center;
 }
 
+main {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
 h1 {
 	font-size: 2.8rem;
 	letter-spacing: 4px;
@@ -40,6 +44,14 @@ h1::after {
 	height: 2px;
 	margin: 15px auto 0;
 	background: linear-gradient(to right, transparent, var(--or), transparent);
+}
+
+h2 {
+	font-size: 1.5rem;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	color: var(--or);
+	margin: 40px 0 15px;
 }
 
 a {
@@ -69,28 +81,91 @@ p:hover {
 	box-shadow: 0 0 18px rgba(200, 168, 90, 0.4);
 }
 
-.bouton {
+ul {
+	list-style: none;
+	margin: 25px auto;
+	padding: 0;
+	max-width: 600px;
+}
+
+li {
+	margin: 10px 0;
+	background: var(--brun);
+	border: 1px solid var(--or);
+	border-radius: 4px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+li:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 0 18px rgba(200, 168, 90, 0.4);
+}
+
+li a {
+	display: block;
+	padding: 14px 20px;
+	letter-spacing: 1px;
+}
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	max-width: 700px;
+	margin: 25px auto;
+}
+
+input[type="text"],
+select {
+	padding: 10px 14px;
+	background: var(--brun);
+	color: var(--texte);
+	border: 1px solid var(--or);
+	border-radius: 4px;
+	font-family: inherit;
+	font-size: 1rem;
+	transition: box-shadow 0.3s;
+}
+
+input[type="text"]::placeholder {
+	color: var(--texte);
+	opacity: 0.5;
+}
+
+input[type="text"]:focus,
+select:focus {
+	outline: none;
+	box-shadow: 0 0 12px rgba(200, 168, 90, 0.6);
+}
+
+option {
+	background: var(--brun);
+	color: var(--texte);
+}
+
+.bouton,
+button {
 	display: inline-block;
-	margin-top: 30px;
-	padding: 12px 30px;
+	padding: 10px 24px;
+	background: transparent;
+	color: var(--or);
 	border: 2px solid var(--or);
 	border-radius: 4px;
+	font-family: inherit;
+	font-size: 0.95rem;
+	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+	line-height: 1.4;
+	cursor: pointer;
+	transition: all 0.3s;
 }
 
-.bouton:hover {
-	background: var(--or);
-	color: var(--noir);
-	text-shadow: none;
+form button {
+	padding: 9px 22px;
 }
-
-main {
-	max-width: 700px;
-	margin: 0 auto;
-}
-
-/* Pied de page discret */
 footer {
 	margin-top: 60px;
 	font-size: 0.8rem;
@@ -99,7 +174,6 @@ footer {
 	opacity: 0.6;
 }
 
-/* Petits écrans */
 @media (max-width: 600px) {
 	body {
 		padding: 30px 12px;
@@ -109,4 +183,247 @@ footer {
 		font-size: 1.8rem;
 		letter-spacing: 2px;
 	}
+
+	h2 {
+		font-size: 1.2rem;
+	}
+
+	input[type="text"],
+	select,
+	button {
+		width: 100%;
+	}
+}
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin: 25px auto;
+}
+
+input[type="text"],
+select {
+	padding: 10px 14px;
+	background: var(--brun);
+	color: var(--texte);
+	border: 1px solid var(--or);
+	border-radius: 4px;
+	font-family: "Cinzel", Georgia, serif;
+	font-size: 1rem;
+}
+
+input[type="text"]::placeholder {
+	color: var(--texte);
+	opacity: 0.5;
+}
+
+input[type="text"]:focus,
+select:focus {
+	outline: none;
+	box-shadow: 0 0 12px rgba(200, 168, 90, 0.6);
+}
+
+option {
+	background: var(--brun);
+	color: var(--texte);
+}
+
+button {
+	padding: 10px 24px;
+	background: transparent;
+	color: var(--or);
+	border: 2px solid var(--or);
+	border-radius: 4px;
+	font-family: "Cinzel", Georgia, serif;
+	font-size: 0.95rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.bouton:hover {
+	background: var(--or);
+	color: var(--noir);
+	text-shadow: none;
+}
+
+.inscrits {
+	max-width: 600px;
+	margin: 15px auto 35px;
+	padding: 15px 20px;
+	background: var(--brun);
+	border: 1px solid var(--or);
+	border-radius: 4px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.inscrits h3 {
+	margin: 0 0 12px;
+	font-size: 1.1rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--or-clair);
+}
+
+.pseudos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 8px;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pseudos li {
+	margin: 0;
+	padding: 4px 14px;
+	background: transparent;
+	border: 1px solid var(--or);
+	border-radius: 20px;
+	box-shadow: none;
+	color: var(--or-clair);
+}
+
+.pseudos li:hover {
+	transform: none;
+	box-shadow: none;
+}
+
+.inscrits .vide {
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	box-shadow: none;
+	opacity: 0.6;
+}
+
+.inscrits .vide:hover {
+	transform: none;
+	box-shadow: none;
+}
+
+.tournoi + .tournoi {
+	margin-top: 50px;
+	padding-top: 10px;
+}
+
+.tournoi + .tournoi::before {
+	content: "";
+	display: block;
+	width: 300px;
+	max-width: 80%;
+	height: 2px;
+	margin: 0 auto 35px;
+	background: linear-gradient(to right, transparent, var(--or), transparent);
+}
+
+.compteur {
+	margin: 20px auto 0;
+	padding: 0;
+	background: none;
+	border: none;
+	box-shadow: none;
+	font-size: 0.95rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--or-clair);
+}
+
+.compteur:hover {
+	transform: none;
+	box-shadow: none;
+}
+.tournoi .inscrits {
+	margin: 15px auto 10px;
+}
+
+button,
+.bouton {
+	transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+button:hover,
+.bouton:hover {
+	background: var(--or);
+	color: var(--noir);
+	text-shadow: none;
+	box-shadow: 0 0 10px var(--or),
+	            0 0 25px rgba(240, 217, 140, 0.6),
+	            0 0 45px rgba(200, 168, 90, 0.35);
+	transform: translateY(-2px);
+}
+
+button:active,
+.bouton:active {
+	transform: translateY(0) scale(0.97);
+	box-shadow: 0 0 6px var(--or);
+}
+
+button:focus-visible,
+.bouton:focus-visible,
+a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--noir), 0 0 0 4px var(--or-clair), 0 0 20px var(--or);
+}
+
+input[type="text"],
+select {
+	transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+input[type="text"]:hover,
+select:hover {
+	border-color: var(--or-clair);
+	box-shadow: 0 0 10px rgba(200, 168, 90, 0.5);
+}
+
+input[type="text"]:focus,
+select:focus {
+	outline: none;
+	border-color: var(--or-clair);
+	box-shadow: 0 0 6px var(--or), 0 0 20px rgba(240, 217, 140, 0.5);
+}
+
+li:hover {
+	border-color: var(--or-clair);
+	box-shadow: 0 0 10px var(--or), 0 0 28px rgba(200, 168, 90, 0.4);
+}
+
+li a:hover {
+	text-shadow: 0 0 10px var(--or-clair);
+}
+
+.pseudos li {
+	transition: box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+
+.pseudos li:hover {
+	background: rgba(200, 168, 90, 0.15);
+	border-color: var(--or-clair);
+	box-shadow: 0 0 10px var(--or);
+	transform: none;
+}
+
+p:hover {
+	transform: none;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.pseudos li:hover {
+	background: transparent;
+	border-color: var(--or);
+	box-shadow: none;
+	transform: none;
+}
+
+p:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 0 18px rgba(200, 168, 90, 0.4);
 }

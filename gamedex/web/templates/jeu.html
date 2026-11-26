@@ -2,9 +2,34 @@
 <h1>{{.Game.Name}}</h1>
 <p>Sorti en {{.Game.Year}} par {{.Game.Studio}}</p>
 
+<p>{{.Likes}} like{{if gt .Likes 1}}s{{end}}</p>
+
+<form method="POST" action="/jeux/{{.Game.ID}}/like">
+  <button type="submit">J'aime</button>
+</form>
+
 <h2>Tournois</h2>
 {{range .Tournaments}}
-  <p>{{.Name}} · {{.City}} · {{.Date}}</p>
+  {{$n := len (index $.Players .ID)}}
+  <section class="tournoi">
+    <p>{{.Name}} · {{.City}} · {{.Date}}</p>
+
+    <div class="inscrits">
+      <h3>Inscrits</h3>
+      {{with index $.Players .ID}}
+        <ul class="pseudos">
+          {{range .}}<li>{{.}}</li>{{end}}
+        </ul>
+      {{else}}
+        <p class="vide">Aucun inscrit pour le moment</p>
+      {{end}}
+    </div>
+
+    <form method="POST" action="/tournois/{{.ID}}/inscription">
+      <input type="text" name="pseudo" placeholder="Votre pseudo" maxlength="20" required>
+      <button type="submit">S'inscrire</button>
+    </form>
+  </section>
 {{else}}
   <p>Aucun tournoi prévu</p>
 {{end}}

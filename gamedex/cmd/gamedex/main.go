@@ -13,7 +13,7 @@ func main() {
 	port := flag.String("port", "8080", "port d'écoute du serveur")
 	flag.Parse()
 
-	games, err := api.FetchGames()
+games, err := api.FetchGames("http://localhost:8081", "", "")
 	if err != nil {
 		log.Fatal("Impossible de charger les jeux : ", err)
 	}

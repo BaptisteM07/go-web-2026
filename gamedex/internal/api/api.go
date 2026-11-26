@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"net/url"
 )
 
 const baseURL = "http://localhost:8081"
@@ -27,20 +28,26 @@ type Tournament struct {
 	Date   string `json:"date"`
 }
 
-func FetchGames() ([]Game, error) {
-	resp, err := client.Get(baseURL + "/api/games")
+func FetchGames(baseURL, q, genre string) ([]Game, error) {
+	params := url.Values{}
+	params.Set("q", q)
+	params.Set("genre", genre)
+
+resp, err := http.Get(baseURL + "/api/games?" + params.Encode())
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("l'API a répondu %d", resp.StatusCode)
+		return nil, fmt.Errorf("API: statut %d", resp.StatusCode)
 	}
 
 	var games []Game
-	err = json.NewDecoder(resp.Body).Decode(&games)
-	return games, err
+	if err := json.NewDecoder(resp.Body).Decode(&games); err != nil {
+		return nil, err
+	}
+	return games, nil
 }
 
 func FetchTournaments() ([]Tournament, error) {

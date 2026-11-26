@@ -1,12 +1,26 @@
-{{/* templates/liste.html */}}
 {{template "header" .}}
 <h1>Les jeux</h1>
+
+<form method="GET" action="/jeux">
+  <input type="text" name="q" value="{{.Query}}" placeholder="Rechercher un jeu">
+
+  <select name="genre">
+    <option value="">Tous les genres</option>
+    {{range .Genres}}
+      <option value="{{.}}" {{if eq . $.Genre}}selected{{end}}>{{.}}</option>
+    {{end}}
+  </select>
+
+  <button type="submit">Rechercher</button>
+</form>
+
 {{if .Query}}
   <p>Vous avez cherché : {{.Query}}</p>
 {{end}}
+
 <ul>
   {{range .Games}}
-    <li><a href="/jeux/{{.ID}}">{{.Name}}</a></li>
+    <li><a href="/jeux/{{.ID}}">{{.Name}} · {{index $.Likes .ID}} ♥</a></li>
   {{end}}
 </ul>
 {{template "footer" .}}
